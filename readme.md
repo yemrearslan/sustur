@@ -64,6 +64,23 @@ Since **Sustur** listens for system-wide key presses (F5), macOS requires specif
 * **Right-Click** the icon to enable **Push-to-Talk** or toggle **Notifications**.
 * **Press F5** on your keyboard to toggle mute instantly from any app.
 
+## 🩺 Troubleshooting
+
+**F5 does nothing (or opens Dictation)**
+
+* **Look for ⚠︎ next to the menu bar icon.** It means macOS *Secure Input* is on. While it's on, no app can see key presses, so Sustur can't catch F5. Right-click the icon to see which app holds it. Password fields and Terminal's *Secure Keyboard Entry* turn it on. The lock screen sometimes leaves it on by mistake: lock and unlock the screen, and if the warning stays, log out and back in.
+* **Check the Accessibility permission.** If it's missing, Sustur asks for it on launch. If F5 stops working after an update, turn Sustur off and on again in `System Settings > Privacy & Security > Accessibility`.
+
+**Reading Sustur's logs**
+
+Sustur logs F5 presses, mute changes and Secure Input changes to the macOS unified log. It also logs when macOS disables its keyboard listener. To see the last day:
+
+```bash
+/usr/bin/log show --last 1d --predicate 'subsystem == "com.emre.sustur"' --info
+```
+
+Use the full `/usr/bin/log` path: in zsh, a plain `log` runs a built-in shell command instead.
+
 ## ⚙️ How to Add to Login Items
 
 To make sure Sustur starts automatically when you turn on your Mac:

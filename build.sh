@@ -6,7 +6,7 @@ BUNDLE_ID="com.emre.sustur"
 APP_ICON="AppIcon.icns"
 
 echo "🔨 Compiling..."
-swiftc sustur.swift -o $BINARY_NAME -framework Cocoa -framework AVFoundation -framework UserNotifications
+swiftc sustur.swift -o $BINARY_NAME -framework Cocoa -framework CoreAudio -framework UserNotifications
 
 if [ "$1" == "--dmg" ]; then
     echo "📦 Creating DMG Package..."

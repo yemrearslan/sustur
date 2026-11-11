@@ -17,9 +17,10 @@
 
 * **F5 Key Remapping:** Intercepts the F5 (Dictation) key to toggle your microphone, preventing the intrusive macOS "Enable Dictation?" system dialog.
 * **Volume Memory:** Automatically remembers your last microphone volume level. When unmuted, it restores your previous setting instead of jumping to 100%.
+* **Mute Guard:** While muted, if another app (e.g. a video call app with automatic gain) raises the input volume, Sustur pushes it back to zero.
 * **Push-to-Talk (PTT):** A dedicated mode where the microphone is only active while holding down the F5 key—perfect for quick interjections in meetings.
-* **Visual Feedback:** The menu bar icon changes color (Red for Muted, System Default for Active) to provide instant status awareness.
-* **Smart Notifications:** Receive native macOS notifications when your mic status changes (disabled during PTT mode to avoid spam).
+* **Visual Feedback:** The menu bar icon changes color (System Default for Muted, Red while the mic is live) to provide instant status awareness.
+* **Smart Notifications:** Receive native macOS notifications when your mic status changes (disabled during PTT mode; they replace each other and are cleared from Notification Center after a few seconds).
 * **Contextual Menu:** Left-click to toggle mute; Right-click to access settings and modes.
 
 ## 🛠️ How to Build
@@ -53,7 +54,7 @@ Since **Sustur** listens for system-wide key presses (F5), macOS requires specif
 
 1. **Accessibility:** Go to `System Settings > Privacy & Security > Accessibility`. Add and enable **Sustur.app**.
 2. **Notifications:** Upon first launch, allow Sustur to send notifications to see status banners.
-3. **Microphone:** The app uses AppleScript to control system volume; no actual audio data is recorded or transmitted.
+3. **Microphone:** The app only changes the input volume of your default microphone via CoreAudio; no audio is recorded or transmitted.
 
 > **Note:** Because the app is "Ad-hoc" signed during the build process, you may need to right-click the app and select **Open** for the first time to bypass the "Unidentified Developer" warning.
 
@@ -82,7 +83,7 @@ To make sure Sustur starts automatically when you turn on your Mac:
 
 ## 📝 TODO
 
-* [ ] **CoreAudio Integration:** Replace AppleScript with low-level CoreAudio API calls for "Hardware Mute" support (ensuring 0% leakage on certain USB microphones).
+* [x] **CoreAudio Integration:** Volume is controlled via CoreAudio instead of AppleScript. Devices without a volume control fall back to their hardware mute switch.
 * [ ] **Custom Hotkeys:** Add a preference pane to allow users to record their own shortcut keys instead of being locked to F5.
 
 
